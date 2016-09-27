@@ -1,4 +1,4 @@
 module.exports = {
   __init__: [ 'connectRules' ],
-  connectRules: [ 'type', require('./ConnectRules') ]
+  connectRules: [ 'type', require('./ConnectRules').default ]
 };

@@ -1,11 +1,11 @@
 'use strict';
 
-/* global bootstrapDiagram, inject */
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
-var forEach = require('lodash/collection/forEach');
+import { forEach } from 'lodash-es';
 
 
-var touchInteractionModule = require('../../../../lib/features/touch');
+import touchInteractionModule from '../../../../lib/features/touch';
 
 
 describe('features/touch', function() {

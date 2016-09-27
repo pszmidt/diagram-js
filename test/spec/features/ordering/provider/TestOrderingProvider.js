@@ -1,11 +1,11 @@
 'use strict';
 
-var inherits = require('inherits');
+import inherits from 'inherits';
 
-var OrderingProvider = require('../../../../../lib/features/ordering/OrderingProvider');
+import OrderingProvider from '../../../../../lib/features/ordering/OrderingProvider';
 
 
-var findIndex = require('lodash/array/findIndex');
+import { findIndex } from 'lodash-es';
 
 
 /**
@@ -14,7 +14,7 @@ var findIndex = require('lodash/array/findIndex');
  * (1) elements are ordered by a {level} property
  * (2) elements with {alwaysTopLevel} are always added to the root
  */
-function TestOrderingProvider(eventBus) {
+export default function TestOrderingProvider(eventBus) {
 
   OrderingProvider.call(this, eventBus);
 
@@ -49,5 +49,3 @@ function TestOrderingProvider(eventBus) {
 }
 
 inherits(TestOrderingProvider, OrderingProvider);
-
-module.exports = TestOrderingProvider;

@@ -1,15 +1,16 @@
 'use strict';
 
-require('../../../TestHelper');
+/* global sinon */
 
-var canvasEvent = require('../../../util/MockEvents').createCanvasEvent;
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
-/* global bootstrapDiagram, inject, sinon */
+import { createCanvasEvent as canvasEvent } from '../../../util/MockEvents';
 
-var bendpointsModule = require('../../../../lib/features/bendpoints'),
-    rulesModule = require('./rules'),
-    modelingModule = require('../../../../lib/features/modeling'),
-    selectModule = require('../../../../lib/features/selection');
+import bendpointsModule from '../../../../lib/features/bendpoints';
+import modelingModule from '../../../../lib/features/modeling';
+import selectModule from '../../../../lib/features/selection';
+
+import rulesModule from './rules';
 
 
 describe('features/bendpoints - move', function() {

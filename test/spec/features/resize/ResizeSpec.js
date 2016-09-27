@@ -1,18 +1,16 @@
 'use strict';
 
-var TestHelper = require('../../../TestHelper');
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
+import { createCanvasEvent as canvasEvent } from '../../../util/MockEvents';
 
-/* global bootstrapDiagram, inject */
+import { pick } from 'lodash-es';
 
-var canvasEvent = require('../../../util/MockEvents').createCanvasEvent;
+import resizeModule from '../../../../lib/features/resize';
+import modelingModule from '../../../../lib/features/modeling';
+import selectModule from '../../../../lib/features/selection';
 
-var pick = require('lodash/object/pick');
-
-var resizeModule = require('../../../../lib/features/resize'),
-    modelingModule = require('../../../../lib/features/modeling'),
-    rulesModule = require('./rules'),
-    selectModule = require('../../../../lib/features/selection');
+import rulesModule from './rules';
 
 function bounds(b) {
   return pick(b, [ 'x', 'y', 'width', 'height' ]);
@@ -53,7 +51,7 @@ describe('features/resize - Resize', function() {
   describe('handles', function() {
 
     function getResizeHandles() {
-      return TestHelper.inject(function(resizeHandles) {
+      return inject(function(resizeHandles) {
         return resizeHandles._getResizersParent().selectAll('.djs-resizer');
       })();
     }
@@ -174,27 +172,29 @@ describe('features/resize - Resize', function() {
     }));
 
 
-    it('should round to full pixel values', inject(function(resize, canvas, dragging, elementFactory) {
+    it('should round to full pixel values',
+      inject(function(resize, canvas, dragging, elementFactory) {
 
-      // given
-      var shape = elementFactory.createShape({
-        id: 'shapeA',
-        resizable: 'always',
-        x: 100, y: 100, width: 100, height: 100
-      });
+        // given
+        var shape = elementFactory.createShape({
+          id: 'shapeA',
+          resizable: 'always',
+          x: 100, y: 100, width: 100, height: 100
+        });
 
-      shape = canvas.addShape(shape);
+        shape = canvas.addShape(shape);
 
-      // when
-      resize.activate(canvasEvent({ x: 0, y: 0 }), shape, 'se');
-      dragging.move(canvasEvent({ x: -20.4, y: 9.8 }));
-      dragging.end();
+        // when
+        resize.activate(canvasEvent({ x: 0, y: 0 }), shape, 'se');
+        dragging.move(canvasEvent({ x: -20.4, y: 9.8 }));
+        dragging.end();
 
-      // then
-      var shapeBounds = pick(shape, ['x', 'y', 'width', 'height']);
+        // then
+        var shapeBounds = pick(shape, ['x', 'y', 'width', 'height']);
 
-      expect(shapeBounds).to.eql({ x: 100, y: 100, width: 80, height: 110 });
-    }));
+        expect(shapeBounds).to.eql({ x: 100, y: 100, width: 80, height: 110 });
+      }
+    ));
 
   });
 

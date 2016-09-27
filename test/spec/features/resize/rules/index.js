@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   __init__: [ 'resizeRules' ],
-  resizeRules: [ 'type', require('./ResizeRules') ]
+  resizeRules: [ 'type', require('./ResizeRules').default ]
 };

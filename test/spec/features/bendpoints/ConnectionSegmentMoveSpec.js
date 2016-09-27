@@ -1,19 +1,19 @@
 'use strict';
 
-require('../../../TestHelper');
+require('../../../TestHelper').default;
 
-var canvasEvent = require('../../../util/MockEvents').createCanvasEvent;
+import { createCanvasEvent as canvasEvent } from '../../../util/MockEvents';
 
 /* global bootstrapDiagram, inject, sinon */
 
-var bendpointsModule = require('../../../../lib/features/bendpoints'),
-    modelingModule = require('../../../../lib/features/modeling'),
-    selectModule = require('../../../../lib/features/selection');
+import bendpointsModule from '../../../../lib/features/bendpoints';
+import modelingModule from '../../../../lib/features/modeling';
+import selectModule from '../../../../lib/features/selection';
 
 var layoutModule = {
   connectionDocking: [
     'type',
-    require('../../../../lib/layout/CroppingConnectionDocking')
+    require('../../../../lib/layout/CroppingConnectionDocking').default
   ]
 };
 

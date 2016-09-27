@@ -53,17 +53,10 @@ module.exports = function(grunt) {
         singleRun: true,
         autoWatch: false,
 
-        browsers: TEST_BROWSERS,
-
-        browserify: {
-          watch: false,
-          debug: true,
-          transform: [ 'brfs' ]
-        }
+        browsers: TEST_BROWSERS
       },
       unit: {
-        browsers: TEST_BROWSERS,
-        debug: true
+        browsers: TEST_BROWSERS
       }
     }
   });

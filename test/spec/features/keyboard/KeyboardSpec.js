@@ -1,17 +1,14 @@
 'use strict';
 
-var TestHelper = require('../../../TestHelper');
+import { bootstrapDiagram, inject, DomMocking } from '../../../TestHelper';
 
-var TestContainer = require('mocha-test-container-support');
+import TestContainer from 'mocha-test-container-support';
 
-/* global bootstrapDiagram, inject */
+import modelingModule from '../../../../lib/features/modeling';
+import editorActionsModule from '../../../../lib/features/editor-actions';
+import keyboardModule from '../../../../lib/features/keyboard';
 
-
-var modelingModule = require('../../../../lib/features/modeling'),
-    editorActionsModule = require('../../../../lib/features/editor-actions'),
-    keyboardModule = require('../../../../lib/features/keyboard');
-
-var createKeyEvent = require('../../../util/KeyEvents').createKeyEvent;
+import { createKeyEvent } from '../../../util/KeyEvents';
 
 
 describe('features/keyboard', function() {
@@ -35,8 +32,13 @@ describe('features/keyboard', function() {
   describe('listener handling', function() {
 
     beforeEach(function() {
-      TestHelper.DomMocking.install();
+      DomMocking.install();
     });
+
+    afterEach(function() {
+      DomMocking.uninstall();
+    });
+
 
     var testDiv;
 
@@ -81,11 +83,6 @@ describe('features/keyboard', function() {
 
       expect(binding).to.equal(testDiv);
     }));
-
-
-    afterEach(function() {
-      TestHelper.DomMocking.uninstall();
-    });
 
   });
 

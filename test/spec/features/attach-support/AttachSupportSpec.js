@@ -1,21 +1,23 @@
 'use strict';
 
-var canvasEvent = require('../../../util/MockEvents').createCanvasEvent;
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
-/* global bootstrapDiagram, inject */
+import { createCanvasEvent as canvasEvent } from '../../../util/MockEvents';
 
-var pick = require('lodash/object/pick');
+import { pick } from 'lodash-es';
 
-var attachSupportModule = require('../../../../lib/features/attach-support'),
-    modelingModule = require('../../../../lib/features/modeling'),
-    replaceModule = require('../../../../lib/features/replace'),
-    spaceToolModule = require('../../../../lib/features/space-tool'),
-    rulesModule = require('./rules');
+import attachSupportModule from '../../../../lib/features/attach-support';
+import modelingModule from '../../../../lib/features/modeling';
+import replaceModule from '../../../../lib/features/replace';
+import spaceToolModule from '../../../../lib/features/space-tool';
 
-var getNewAttachShapeDelta = require('../../../../lib/util/AttachUtil').getNewAttachShapeDelta,
-    isMac = require('../../../../lib/util/Mouse').isMac;
+import { getNewAttachShapeDelta } from '../../../../lib/features/attach-support/AttachSupport';
 
-var keyModifier = isMac() ? { metaKey: true } : { ctrlKey: true };
+import { isMac } from '../../../../lib/util/Platform';
+
+const keyModifier = isMac() ? { metaKey: true } : { ctrlKey: true };
+
+import rulesModule from './rules';
 
 
 describe('features/attach-support', function() {

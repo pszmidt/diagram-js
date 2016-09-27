@@ -1,11 +1,13 @@
 'use strict';
 
-/* global bootstrapDiagram, inject */
-
-var TestHelper = require('../../TestHelper');
+import {
+  getDiagramJS,
+  bootstrapDiagram,
+  inject
+} from '../../TestHelper';
 
 var layoutModule = {
-  connectionDocking: [ 'type', require('../../../lib/layout/CroppingConnectionDocking') ]
+  connectionDocking: [ 'type', require('../../../lib/layout/CroppingConnectionDocking').default ]
 };
 
 
@@ -30,7 +32,7 @@ function visualizeActual(canvas, point) {
 }
 
 function expectDockingPoint(connection, shape, expected) {
-  return TestHelper.getDiagramJS().invoke(function(canvas, connectionDocking) {
+  return getDiagramJS().invoke(function(canvas, connectionDocking) {
 
     var cropStart = shape === connection.source;
     var dockingPoint = connectionDocking.getDockingPoint(connection, shape, cropStart);
@@ -44,7 +46,7 @@ function expectDockingPoint(connection, shape, expected) {
 
 function expectCropping(connection, expectedWaypoints) {
 
-  return TestHelper.getDiagramJS().invoke(function(canvas, connectionDocking) {
+  return getDiagramJS().invoke(function(canvas, connectionDocking) {
     var croppedWaypoints = connectionDocking.getCroppedWaypoints(connection);
 
     expectedWaypoints.forEach(function(p) {

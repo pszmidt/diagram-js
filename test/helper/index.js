@@ -1,14 +1,16 @@
 'use strict';
 
-var unique = require('lodash/array/unique'),
-    isFunction = require('lodash/lang/isFunction'),
-    merge = require('lodash/object/merge'),
-    forEach = require('lodash/collection/forEach');
+import {
+  uniq,
+  isFunction,
+  merge,
+  forEach
+} from 'lodash-es';
 
-var TestContainer = require('mocha-test-container-support');
+import TestContainer from 'mocha-test-container-support';
 
-var Diagram = require('../../lib/Diagram'),
-    domEvent = require('min-dom/lib/event');
+import Diagram from '../../lib/Diagram';
+import domEvent from 'min-dom/lib/event';
 
 var OPTIONS, DIAGRAM_JS;
 
@@ -36,7 +38,7 @@ var OPTIONS, DIAGRAM_JS;
  * @param  {Object|Function} locals  the local overrides to be used by the diagram or a function that produces them
  * @return {Function}         a function to be passed to beforeEach
  */
-function bootstrapDiagram(options, locals) {
+export function bootstrapDiagram(options, locals) {
 
   return function() {
 
@@ -88,7 +90,7 @@ function bootstrapDiagram(options, locals) {
       mockModule[k] = ['value', v];
     });
 
-    _options.modules = unique([].concat(_options.modules || [], [ mockModule ]));
+    _options.modules = uniq([].concat(_options.modules || [], [ mockModule ]));
 
     // remove previous instance
     cleanup();
@@ -119,7 +121,7 @@ function bootstrapDiagram(options, locals) {
  * @param  {Function} fn the function to inject to
  * @return {Function} a function that can be passed to it to carry out the injection
  */
-function inject(fn) {
+export function inject(fn) {
   return function() {
 
     if (!DIAGRAM_JS) {
@@ -138,11 +140,11 @@ function cleanup() {
   DIAGRAM_JS.destroy();
 }
 
-module.exports.bootstrapDiagram = (window || global).bootstrapDiagram = bootstrapDiagram;
-module.exports.inject = (window || global).inject = inject;
+window.bootstrapDiagram = bootstrapDiagram;
+window.inject = inject;
 
 
-function insertCSS(name, css) {
+export function insertCSS(name, css) {
   if (document.querySelector('[data-css-file="' + name + '"]')) {
     return;
   }
@@ -161,11 +163,10 @@ function insertCSS(name, css) {
   head.appendChild(style);
 }
 
-module.exports.insertCSS = insertCSS;
-
-module.exports.getDiagramJS = function() {
+export function getDiagramJS() {
   return DIAGRAM_JS;
-};
+}
+
 
 function DomEventTracker() {
 
@@ -191,4 +192,4 @@ function DomEventTracker() {
   };
 }
 
-module.exports.DomMocking = new DomEventTracker();
+export const DomMocking = new DomEventTracker();

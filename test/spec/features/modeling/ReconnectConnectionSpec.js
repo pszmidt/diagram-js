@@ -1,9 +1,8 @@
 'use strict';
 
-/* global bootstrapDiagram, inject */
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
-
-var modelingModule = require('../../../../lib/features/modeling');
+import modelingModule from '../../../../lib/features/modeling';
 
 
 describe('features/modeling - reconnect connection', function() {

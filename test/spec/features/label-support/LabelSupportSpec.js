@@ -1,18 +1,24 @@
 'use strict';
 
-var canvasEvent = require('../../../util/MockEvents').createCanvasEvent;
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
-/* global bootstrapDiagram, inject */
+import { createCanvasEvent as canvasEvent } from '../../../util/MockEvents';
 
+import labelSupportModule from '../../../../lib/features/label-support';
+import modelingModule from '../../../../lib/features/modeling';
 
-var labelSupportModule = require('../../../../lib/features/label-support'),
-    modelingModule = require('../../../../lib/features/modeling'),
-    rulesModule = require('./rules');
+import rulesModule from './rules';
 
 
 describe('features/label-support - Label', function() {
 
-  beforeEach(bootstrapDiagram({ modules: [ labelSupportModule, modelingModule, rulesModule ] }));
+  beforeEach(bootstrapDiagram({
+    modules: [
+      labelSupportModule,
+      modelingModule,
+      rulesModule
+    ]
+  }));
 
   beforeEach(inject(function(canvas, dragging) {
     dragging.setOptions({ manual: true });

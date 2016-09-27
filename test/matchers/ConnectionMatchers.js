@@ -1,6 +1,6 @@
 'use strict';
 
-var pick = require('lodash/object/pick');
+import { pick } from 'lodash-es';
 
 var POSITION_ATTRS = [ 'x', 'y' ];
 
@@ -9,7 +9,7 @@ function extractPoints(point) {
 }
 
 
-module.exports = function(chai, utils) {
+export default function(chai, utils) {
 
   var Assertion = chai.Assertion;
 
@@ -120,5 +120,4 @@ module.exports = function(chai, utils) {
         expectedEndDockingStr + ' but got ' + endDockingStr
     );
   });
-
-};
+}

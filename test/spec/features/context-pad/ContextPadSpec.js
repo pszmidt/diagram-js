@@ -1,17 +1,17 @@
 'use strict';
 
-var globalEvent = require('../../../util/MockEvents').createEvent;
+import { createEvent as globalEvent } from '../../../util/MockEvents';
 
 
 /* global bootstrapDiagram, inject, sinon */
 
-var domQuery = require('min-dom/lib/query');
+import domQuery from 'min-dom/lib/query';
 
-var contextPadModule = require('../../../../lib/features/context-pad');
+import contextPadModule from '../../../../lib/features/context-pad';
 
 var providerModule = {
   __init__: [ 'contextPadProvider' ],
-  contextPadProvider: ['type', require('./ContextPadProvider') ]
+  contextPadProvider: ['type', require('./ContextPadProvider').default ]
 };
 
 var initPadModule = {

@@ -20,7 +20,9 @@
   "author": "bpmn.io",
   "license": "MIT",
   "devDependencies": {
-    "brfs": "~1.2.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babelify": "^7.3.0",
+    "brfs-babel": "^1.0.0",
     "browserify": "^13.0.0",
     "chai": "~2.2.0",
     "eslint": "^2.11.1",
@@ -57,7 +59,7 @@
     "eve": "^0.4.2",
     "hammerjs": "^2.0.1",
     "inherits": "^2.0.1",
-    "lodash": "^3.0.1",
+    "lodash-es": "^4.16.1",
     "min-dom": "^0.2.0",
     "object-refs": "^0.1.1",
     "snapsvg": "https://github.com/Nikku/Snap.svg/archive/v0.3.0-browserify.tar.gz"

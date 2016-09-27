@@ -1,12 +1,12 @@
 'use strict';
 
-require('../../../TestHelper');
+require('../../../TestHelper').default;
 
 /* global bootstrapDiagram, inject */
 
 
-var changeSupportModule = require('../../../../lib/features/modeling'),
-    coreModule = require('../../../../lib/core');
+import changeSupportModule from '../../../../lib/features/modeling';
+import coreModule from '../../../../lib/core';
 
 
 describe('features/change-support', function() {

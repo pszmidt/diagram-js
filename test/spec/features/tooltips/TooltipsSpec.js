@@ -1,14 +1,16 @@
 'use strict';
 
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
-/* global bootstrapDiagram, inject */
+import {
+  forEach,
+  assign,
+  every
+} from 'lodash-es';
 
-var forEach = require('lodash/collection/forEach'),
-    assign = require('lodash/object/assign'),
-    every = require('lodash/collection/every'),
-    domify = require('min-dom/lib/domify');
+import domify from 'min-dom/lib/domify';
 
-var tooltipsModule = require('../../../../lib/features/tooltips');
+import tooltipsModule from '../../../../lib/features/tooltips';
 
 
 function asMatrix(transformStr) {

@@ -1,4 +1,4 @@
 module.exports = {
   __init__: [ 'testOrderingProvider' ],
-  testOrderingProvider: [ 'type', require('./TestOrderingProvider') ]
+  testOrderingProvider: [ 'type', require('./TestOrderingProvider').default ]
 };

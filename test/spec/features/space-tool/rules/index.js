@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   __init__: [ 'spaceRules' ],
-  spaceRules: [ 'type', require('./SpaceRules') ]
+  spaceRules: [ 'type', require('./SpaceRules').default ]
 };

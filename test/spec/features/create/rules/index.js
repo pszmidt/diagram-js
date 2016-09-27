@@ -1,4 +1,4 @@
 module.exports = {
   __init__: [ 'createRules' ],
-  createRules: [ 'type', require('./CreateRules') ]
+  createRules: [ 'type', require('./CreateRules').default ]
 };

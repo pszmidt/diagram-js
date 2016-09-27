@@ -1,26 +1,27 @@
 'use strict';
 
-var fs = require('fs');
+import { readFileSync } from 'fs';
 
 
-function ContextPadProvider(contextPad) {
+export default function ContextPadProvider(contextPad) {
   contextPad.registerProvider(this);
 }
 
 ContextPadProvider.$inject = [ 'contextPad' ];
+
 
 ContextPadProvider.prototype.getContextPadEntries = function(element) {
 
   if (element.type === 'A') {
     return {
       'action.a': {
-        imageUrl: 'data:image/png;base64,' + fs.readFileSync(__dirname + '/resources/a.png', 'base64'),
+        imageUrl: 'data:image/png;base64,' + readFileSync(__dirname + '/resources/a.png', 'base64'),
         action: function(e) {
           e.__handled = true;
         }
       },
       'action.b': {
-        imageUrl: 'data:image/png;base64,' + fs.readFileSync(__dirname + '/resources/b.png', 'base64'),
+        imageUrl: 'data:image/png;base64,' + readFileSync(__dirname + '/resources/b.png', 'base64'),
         action: function(e) {
           e.__handled = true;
         }
@@ -41,7 +42,7 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
   } else {
     return {
       'action.c': {
-        imageUrl: 'data:image/png;base64,' + fs.readFileSync(__dirname + '/resources/c.png', 'base64'),
+        imageUrl: 'data:image/png;base64,' + readFileSync(__dirname + '/resources/c.png', 'base64'),
         action: function(e) {
           e.__handled = true;
         }
@@ -54,5 +55,3 @@ ContextPadProvider.prototype.getContextPadEntries = function(element) {
     };
   }
 };
-
-module.exports = ContextPadProvider;

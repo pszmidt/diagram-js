@@ -1,11 +1,11 @@
 'use strict';
 
-/* global bootstrapDiagram, inject */
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
+import { pick } from 'lodash-es';
 
-var pick = require('lodash/object/pick');
+import modelingModule from '../../../../lib/features/modeling';
 
-var modelingModule = require('../../../../lib/features/modeling');
 
 function containment(element) {
   return pick(element, [ 'x', 'y', 'parent' ]);
@@ -13,7 +13,6 @@ function containment(element) {
 
 
 describe('features/modeling - move elements', function() {
-
 
   beforeEach(bootstrapDiagram({ modules: [ modelingModule ] }));
 

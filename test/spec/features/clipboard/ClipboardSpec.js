@@ -1,11 +1,11 @@
 'use strict';
 
-require('../../../TestHelper');
+require('../../../TestHelper').default;
 
 /* global bootstrapDiagram, inject */
 
 
-var clipboardModule = require('../../../../lib/features/clipboard');
+import clipboardModule from '../../../../lib/features/clipboard';
 
 
 describe('features/clipboard', function() {

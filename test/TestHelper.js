@@ -1,5 +1,26 @@
 'use strict';
 
+import { readFileSync } from 'fs';
+
+import {
+  inject,
+  bootstrapDiagram,
+  getDiagramJS,
+  insertCSS,
+  DomMocking
+} from './helper';
+
+import BoundsMatchers from './matchers/BoundsMatchers';
+import ConnectionMatchers from './matchers/ConnectionMatchers';
+
+export {
+  insertCSS,
+  bootstrapDiagram,
+  getDiagramJS,
+  inject,
+  DomMocking
+};
+
 // make sinon fake timers work with lodash #debounce, #now
 // and friends by overriding the native Date#now.
 //
@@ -8,17 +29,13 @@ Date.now = function() {
   return new Date().getTime();
 };
 
-var TestHelper = module.exports = require('./helper');
+insertCSS('diagram-js.css', readFileSync(__dirname + '/../assets/diagram-js.css', 'utf8'));
 
-var fs = require('fs');
-
-TestHelper.insertCSS('diagram-js.css', fs.readFileSync(__dirname + '/../assets/diagram-js.css', 'utf8'));
-
-TestHelper.insertCSS('diagram-js-testing.css',
+insertCSS('diagram-js-testing.css',
   '.test-container .result { height: 500px; }' + '.test-container > div'
 );
 
 
 // add suite specific matchers
-global.chai.use(require('./matchers/BoundsMatchers'));
-global.chai.use(require('./matchers/ConnectionMatchers'));
+global.chai.use(BoundsMatchers);
+global.chai.use(ConnectionMatchers);

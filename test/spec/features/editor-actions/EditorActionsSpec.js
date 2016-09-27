@@ -1,18 +1,24 @@
 'use strict';
 
-require('../../../TestHelper');
+/* global sinon */
 
-/* global bootstrapDiagram, inject, sinon */
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
+import editorActionsModule from '../../../../lib/features/editor-actions';
+import modelingModule from '../../../../lib/features/modeling';
 
-var editorActionsModule = require('../../../../lib/features/editor-actions'),
-    modelingModule = require('../../../../lib/features/modeling'),
-    customRulesModule = require('./rules');
+import customRulesModule from './rules';
 
 
 describe('features/editor-actions', function() {
 
-  beforeEach(bootstrapDiagram({ modules: [ editorActionsModule, modelingModule, customRulesModule ] }));
+  beforeEach(bootstrapDiagram({
+    modules: [
+      editorActionsModule,
+      modelingModule,
+      customRulesModule
+    ]
+  }));
 
 
   var rootShape, parentShape, childShape, childShape2, connection;

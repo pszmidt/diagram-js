@@ -1,14 +1,12 @@
 'use strict';
 
-require('../../TestHelper');
+import { bootstrapDiagram, inject } from '../../TestHelper';
 
-/* global bootstrapDiagram, inject */
+import { keys } from 'lodash-es';
 
-var keys = require('lodash/object/keys');
+import { getEnclosedElements } from '../../../lib/util/Elements';
 
-var Elements = require('../../../lib/util/Elements');
-
-var modelingModule = require('../../../lib/features/modeling');
+import modelingModule from '../../../lib/features/modeling';
 
 
 describe('util/Elements', function() {
@@ -122,7 +120,7 @@ describe('util/Elements', function() {
       };
 
       // when
-      var filteredElements = Elements.getEnclosedElements(elements, bbox);
+      var filteredElements = getEnclosedElements(elements, bbox);
 
       // then
       var ids = keys(filteredElements);
@@ -137,7 +135,7 @@ describe('util/Elements', function() {
       };
 
       // when
-      var filteredElements = Elements.getEnclosedElements(elements, bbox);
+      var filteredElements = getEnclosedElements(elements, bbox);
 
       // then
       var ids = keys(filteredElements);
@@ -153,7 +151,7 @@ describe('util/Elements', function() {
       };
 
       // when
-      var filteredElements = Elements.getEnclosedElements(elements, bbox);
+      var filteredElements = getEnclosedElements(elements, bbox);
 
       // then
       var ids = keys(filteredElements);
@@ -171,7 +169,7 @@ describe('util/Elements', function() {
       };
 
       // when
-      var filteredElements = Elements.getEnclosedElements(elements, bbox);
+      var filteredElements = getEnclosedElements(elements, bbox);
 
       // then
       var ids = keys(filteredElements);
@@ -201,7 +199,7 @@ describe('util/Elements', function() {
         };
 
         // when
-        var filteredElements = Elements.getEnclosedElements(elements, bbox);
+        var filteredElements = getEnclosedElements(elements, bbox);
 
         // then
         var ids = keys(filteredElements);
@@ -241,7 +239,7 @@ describe('util/Elements', function() {
         });
 
         // when
-        var filteredElements = Elements.getEnclosedElements(elements, bbox);
+        var filteredElements = getEnclosedElements(elements, bbox);
 
         // then
         var ids = keys(filteredElements);
@@ -262,7 +260,7 @@ describe('util/Elements', function() {
         };
 
         // when
-        var filteredElements = Elements.getEnclosedElements(elements, bbox);
+        var filteredElements = getEnclosedElements(elements, bbox);
 
         // then
         var ids = keys(filteredElements);

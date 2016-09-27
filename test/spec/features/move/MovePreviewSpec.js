@@ -1,18 +1,26 @@
 'use strict';
 
-/* global bootstrapDiagram, inject */
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
-var canvasEvent = require('../../../util/MockEvents').createCanvasEvent;
+import { createCanvasEvent as canvasEvent } from '../../../util/MockEvents';
 
-var modelingModule = require('../../../../lib/features/modeling'),
-    moveModule = require('../../../../lib/features/move'),
-    attachSupportModule = require('../../../../lib/features/attach-support'),
-    rulesModule = require('./rules');
+import modelingModule from '../../../../lib/features/modeling';
+import moveModule from '../../../../lib/features/move';
+import attachSupportModule from '../../../../lib/features/attach-support';
+
+import rulesModule from './rules';
 
 
 describe('features/move - MovePreview', function() {
 
-  beforeEach(bootstrapDiagram({ modules: [ moveModule, attachSupportModule, rulesModule, modelingModule ] }));
+  beforeEach(bootstrapDiagram({
+    modules: [
+      moveModule,
+      attachSupportModule,
+      rulesModule,
+      modelingModule
+    ]
+  }));
 
   beforeEach(inject(function(canvas, dragging) {
     dragging.setOptions({ manual: true });

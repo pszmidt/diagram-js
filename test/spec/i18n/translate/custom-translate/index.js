@@ -1,3 +1,3 @@
-module.exports = {
-  translate: [ 'value', require('./custom-translate') ]
+export default {
+  translate: [ 'value', require('./custom-translate').default ]
 };

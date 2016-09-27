@@ -1,11 +1,11 @@
 'use strict';
 
-var canvasEvent = require('../../../util/MockEvents').createCanvasEvent;
+import { createCanvasEvent as canvasEvent } from '../../../util/MockEvents';
 
 /* global bootstrapDiagram, inject, sinon */
 
-var modelingModule = require('../../../../lib/features/modeling'),
-    globalConnectModule = require('../../../../lib/features/global-connect');
+import modelingModule from '../../../../lib/features/modeling';
+import globalConnectModule from '../../../../lib/features/global-connect';
 
 
 function Provider(allow) {

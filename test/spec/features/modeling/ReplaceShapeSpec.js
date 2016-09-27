@@ -1,11 +1,9 @@
 'use strict';
 
-require('../../../TestHelper');
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
-/* global bootstrapDiagram, inject */
+import modelingModule from '../../../../lib/features/modeling';
 
-
-var modelingModule = require('../../../../lib/features/modeling');
 
 describe('features/modeling - replace shape', function() {
 

@@ -1,11 +1,11 @@
 'use strict';
 
-var forEach = require('lodash/collection/forEach');
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
-/* global bootstrapDiagram, inject */
+import { forEach } from 'lodash-es';
 
-var distributeElementsModule = require('../../../../lib/features/distribute-elements'),
-    modelingModule = require('../../../../lib/features/modeling');
+import distributeElementsModule from '../../../../lib/features/distribute-elements';
+import modelingModule from '../../../../lib/features/modeling';
 
 
 function expectRanges(rangeGroups, expectedRanges) {
@@ -21,6 +21,7 @@ function expectRanges(rangeGroups, expectedRanges) {
     expect(group.elements).to.eql(expectedRanges[idx].elements);
   });
 }
+
 
 describe('features/distribute-elements', function() {
 

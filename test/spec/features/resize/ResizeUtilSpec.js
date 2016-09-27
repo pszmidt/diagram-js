@@ -1,10 +1,15 @@
 'use strict';
 
-var ResizeUtil = require('../../../../lib/features/resize/ResizeUtil');
+import {
+  resizeBounds,
+  reattachPoint,
+  addPadding,
+  ensureConstraints,
+  getMinResizeBounds
+} from '../../../../lib/features/resize/ResizeUtil';
 
 
 describe('resize/ResizeUtil', function() {
-
 
   describe('resizeBounds', function() {
 
@@ -15,7 +20,7 @@ describe('resize/ResizeUtil', function() {
     it('nw (shrink)', function() {
 
       // when
-      var resized = ResizeUtil.resizeBounds(bounds, 'nw', { x: 10, y: 20 });
+      var resized = resizeBounds(bounds, 'nw', { x: 10, y: 20 });
 
       // then
       expect(resized).to.eql({ x: 10, y: 20, width: 90, height: 80 });
@@ -25,7 +30,7 @@ describe('resize/ResizeUtil', function() {
     it('nw (expand)', function() {
 
       // when
-      var resized = ResizeUtil.resizeBounds(bounds, 'nw', { x: -10, y: -20 });
+      var resized = resizeBounds(bounds, 'nw', { x: -10, y: -20 });
 
       // then
       expect(resized).to.eql({ x: -10, y: -20, width: 110, height: 120 });
@@ -35,7 +40,7 @@ describe('resize/ResizeUtil', function() {
     it('ne (expand)', function() {
 
       // when
-      var resized = ResizeUtil.resizeBounds(bounds, 'ne', { x: 10, y: -20 });
+      var resized = resizeBounds(bounds, 'ne', { x: 10, y: -20 });
 
       // then
       expect(resized).to.eql({ x: 0, y: -20, width: 110, height: 120 });
@@ -45,7 +50,7 @@ describe('resize/ResizeUtil', function() {
     it('ne (shrink)', function() {
 
       // when
-      var resized = ResizeUtil.resizeBounds(bounds, 'ne', { x: -10, y: 20 });
+      var resized = resizeBounds(bounds, 'ne', { x: -10, y: 20 });
 
       // then
       expect(resized).to.eql({ x: 0, y: 20, width: 90, height: 80 });
@@ -55,7 +60,7 @@ describe('resize/ResizeUtil', function() {
     it('se (expand)', function() {
 
       // when
-      var resized = ResizeUtil.resizeBounds(bounds, 'se', { x: 10, y: 20 });
+      var resized = resizeBounds(bounds, 'se', { x: 10, y: 20 });
 
       // then
       expect(resized).to.eql({ x: 0, y: 0, width: 110, height: 120 });
@@ -65,7 +70,7 @@ describe('resize/ResizeUtil', function() {
     it('se (shrink)', function() {
 
       // when
-      var resized = ResizeUtil.resizeBounds(bounds, 'se', { x: -10, y: -20 });
+      var resized = resizeBounds(bounds, 'se', { x: -10, y: -20 });
 
       // then
       expect(resized).to.eql({ x: 0, y: 0, width: 90, height: 80 });
@@ -75,7 +80,7 @@ describe('resize/ResizeUtil', function() {
     it('sw (shrink)', function() {
 
       // when
-      var resized = ResizeUtil.resizeBounds(bounds, 'sw', { x: 10, y: -20 });
+      var resized = resizeBounds(bounds, 'sw', { x: 10, y: -20 });
 
       // then
       expect(resized).to.eql({ x: 10, y: 0, width: 90, height: 80 });
@@ -85,7 +90,7 @@ describe('resize/ResizeUtil', function() {
     it('sw (expand)', function() {
 
       // when
-      var resized = ResizeUtil.resizeBounds(bounds, 'sw', { x: -10, y: 20 });
+      var resized = resizeBounds(bounds, 'sw', { x: -10, y: 20 });
 
       // then
       expect(resized).to.eql({ x: -10, y: 0, width: 110, height: 120 });
@@ -101,15 +106,15 @@ describe('resize/ResizeUtil', function() {
       var oldBounds = { x: 0, y: 0, width: 60, height: 60 },
           newBounds = { x: 30, y: 30, width: 30, height: 30 };
 
-      expect(ResizeUtil.reattachPoint(oldBounds, newBounds, { x: 30, y: 0 })).to.eql({ x: 45, y: 30 });
-      expect(ResizeUtil.reattachPoint(oldBounds, newBounds, { x: 60, y: 30 })).to.eql({ x: 60, y: 45 });
-      expect(ResizeUtil.reattachPoint(oldBounds, newBounds, { x: 30, y: 60 })).to.eql({ x: 45, y: 60 });
-      expect(ResizeUtil.reattachPoint(oldBounds, newBounds, { x: 0, y: 30 })).to.eql({ x: 30, y: 45 });
+      expect(reattachPoint(oldBounds, newBounds, { x: 30, y: 0 })).to.eql({ x: 45, y: 30 });
+      expect(reattachPoint(oldBounds, newBounds, { x: 60, y: 30 })).to.eql({ x: 60, y: 45 });
+      expect(reattachPoint(oldBounds, newBounds, { x: 30, y: 60 })).to.eql({ x: 45, y: 60 });
+      expect(reattachPoint(oldBounds, newBounds, { x: 0, y: 30 })).to.eql({ x: 30, y: 45 });
 
-      expect(ResizeUtil.reattachPoint(oldBounds, newBounds, { x: 0, y: 0 })).to.eql({ x: 30, y: 30 });
-      expect(ResizeUtil.reattachPoint(oldBounds, newBounds, { x: 60, y: 0 })).to.eql({ x: 60, y: 30 });
-      expect(ResizeUtil.reattachPoint(oldBounds, newBounds, { x: 60, y: 60 })).to.eql({ x: 60, y: 60 });
-      expect(ResizeUtil.reattachPoint(oldBounds, newBounds, { x: 0, y: 60 })).to.eql({ x: 30, y: 60 });
+      expect(reattachPoint(oldBounds, newBounds, { x: 0, y: 0 })).to.eql({ x: 30, y: 30 });
+      expect(reattachPoint(oldBounds, newBounds, { x: 60, y: 0 })).to.eql({ x: 60, y: 30 });
+      expect(reattachPoint(oldBounds, newBounds, { x: 60, y: 60 })).to.eql({ x: 60, y: 60 });
+      expect(reattachPoint(oldBounds, newBounds, { x: 0, y: 60 })).to.eql({ x: 30, y: 60 });
     });
 
   });
@@ -140,7 +145,7 @@ describe('resize/ResizeUtil', function() {
         width: 250, height: 250
       };
 
-      var newBounds = ResizeUtil.ensureConstraints(currentBounds, { min: min });
+      var newBounds = ensureConstraints(currentBounds, { min: min });
 
       // then
       expect(newBounds).to.deep.equal({
@@ -158,7 +163,7 @@ describe('resize/ResizeUtil', function() {
         width: 400, height: 400
       };
 
-      var newBounds = ResizeUtil.ensureConstraints(currentBounds, { min: min });
+      var newBounds = ensureConstraints(currentBounds, { min: min });
 
       // then
       expect(newBounds).to.deep.equal({
@@ -177,7 +182,7 @@ describe('resize/ResizeUtil', function() {
         width: 400, height: 400
       };
 
-      var newBounds = ResizeUtil.ensureConstraints(currentBounds, { max: max });
+      var newBounds = ensureConstraints(currentBounds, { max: max });
 
       // then
       expect(newBounds).to.deep.equal({
@@ -195,7 +200,7 @@ describe('resize/ResizeUtil', function() {
         width: 400, height: 400
       };
 
-      var newBounds = ResizeUtil.ensureConstraints(currentBounds, { max: max });
+      var newBounds = ensureConstraints(currentBounds, { max: max });
 
       // then
       expect(newBounds).to.deep.equal({
@@ -224,7 +229,7 @@ describe('resize/ResizeUtil', function() {
       it('should compute <nw> resize bounds', function() {
 
         // when
-        var newBounds = ResizeUtil.getMinResizeBounds('nw', currentBounds, minDimensions);
+        var newBounds = getMinResizeBounds('nw', currentBounds, minDimensions);
 
         // then
         expect(newBounds).to.eql({ x: 150, y: 150, width: 50, height: 50 });
@@ -234,7 +239,7 @@ describe('resize/ResizeUtil', function() {
       it('should compute <sw> resize bounds', function() {
 
         // when
-        var newBounds = ResizeUtil.getMinResizeBounds('sw', currentBounds, minDimensions);
+        var newBounds = getMinResizeBounds('sw', currentBounds, minDimensions);
 
         // then
         expect(newBounds).to.eql({ x: 150, y: 100, width: 50, height: 50 });
@@ -244,7 +249,7 @@ describe('resize/ResizeUtil', function() {
       it('should compute <ne> resize bounds', function() {
 
         // when
-        var newBounds = ResizeUtil.getMinResizeBounds('ne', currentBounds, minDimensions);
+        var newBounds = getMinResizeBounds('ne', currentBounds, minDimensions);
 
         // then
         expect(newBounds).to.eql({ x: 100, y: 150, width: 50, height: 50 });
@@ -254,7 +259,7 @@ describe('resize/ResizeUtil', function() {
       it('should compute <se> resize bounds', function() {
 
         // when
-        var newBounds = ResizeUtil.getMinResizeBounds('se', currentBounds, minDimensions);
+        var newBounds = getMinResizeBounds('se', currentBounds, minDimensions);
 
         // then
         expect(newBounds).to.eql({ x: 100, y: 100, width: 50, height: 50 });
@@ -284,7 +289,7 @@ describe('resize/ResizeUtil', function() {
       it('should compute <nw> resize bounds', function() {
 
         // when
-        var newBounds = ResizeUtil.getMinResizeBounds('nw', currentBounds, minDimensions, childrenBounds);
+        var newBounds = getMinResizeBounds('nw', currentBounds, minDimensions, childrenBounds);
 
         // then
         expect(newBounds).to.eql({ x: 120, y: 110, width: 80, height: 90 });
@@ -294,7 +299,7 @@ describe('resize/ResizeUtil', function() {
       it('should compute <sw> resize bounds', function() {
 
         // when
-        var newBounds = ResizeUtil.getMinResizeBounds('sw', currentBounds, minDimensions, childrenBounds);
+        var newBounds = getMinResizeBounds('sw', currentBounds, minDimensions, childrenBounds);
 
         // then
         expect(newBounds).to.eql({ x: 120, y: 100, width: 80, height: 60 });
@@ -304,7 +309,7 @@ describe('resize/ResizeUtil', function() {
       it('should compute <ne> resize bounds', function() {
 
         // when
-        var newBounds = ResizeUtil.getMinResizeBounds('ne', currentBounds, minDimensions, childrenBounds);
+        var newBounds = getMinResizeBounds('ne', currentBounds, minDimensions, childrenBounds);
 
         // then
         expect(newBounds).to.eql({ x: 100, y: 110, width: 60, height: 90 });
@@ -314,7 +319,7 @@ describe('resize/ResizeUtil', function() {
       it('should compute <se> resize bounds', function() {
 
         // when
-        var newBounds = ResizeUtil.getMinResizeBounds('se', currentBounds, minDimensions, childrenBounds);
+        var newBounds = getMinResizeBounds('se', currentBounds, minDimensions, childrenBounds);
 
         // then
         expect(newBounds).to.eql({ x: 100, y: 100, width: 60, height: 60 });
@@ -339,7 +344,7 @@ describe('resize/ResizeUtil', function() {
 
     it('should give min bounds for "nw"', function() {
       // when
-      var newBounds = ResizeUtil.getMinResizeBounds('nw', currentBounds, minDimensions);
+      var newBounds = getMinResizeBounds('nw', currentBounds, minDimensions);
 
       // then
       expect(newBounds).to.eql({ x: 150, y: 150, width: 50, height: 50 });
@@ -348,7 +353,7 @@ describe('resize/ResizeUtil', function() {
 
     it('should give min bounds for "sw"', function() {
       // when
-      var newBounds = ResizeUtil.getMinResizeBounds('sw', currentBounds, minDimensions);
+      var newBounds = getMinResizeBounds('sw', currentBounds, minDimensions);
 
       // then
       expect(newBounds).to.eql({ x: 150, y: 100, width: 50, height: 50 });
@@ -357,7 +362,7 @@ describe('resize/ResizeUtil', function() {
 
     it('should give min bounds for "ne"', function() {
       // when
-      var newBounds = ResizeUtil.getMinResizeBounds('ne', currentBounds, minDimensions);
+      var newBounds = getMinResizeBounds('ne', currentBounds, minDimensions);
 
       // then
       expect(newBounds).to.eql({ x: 100, y: 150, width: 50, height: 50 });
@@ -366,7 +371,7 @@ describe('resize/ResizeUtil', function() {
 
     it('should give min bounds for "se"', function() {
       // when
-      var newBounds = ResizeUtil.getMinResizeBounds('se', currentBounds, minDimensions);
+      var newBounds = getMinResizeBounds('se', currentBounds, minDimensions);
 
       // then
       expect(newBounds).to.eql({ x: 100, y: 100, width: 50, height: 50 });
@@ -385,7 +390,7 @@ describe('resize/ResizeUtil', function() {
     it('should apply padding', function() {
 
       // when
-      var newBounds = ResizeUtil.addPadding(bounds, 30);
+      var newBounds = addPadding(bounds, 30);
 
       // then
       expect(newBounds).to.eql({ x: -80, y: -80, width: 160, height: 160 });
@@ -395,7 +400,7 @@ describe('resize/ResizeUtil', function() {
     it('should apply 0 padding', function() {
 
       // when
-      var newBounds = ResizeUtil.addPadding(bounds, 0);
+      var newBounds = addPadding(bounds, 0);
 
       // then
       expect(newBounds).to.eql(bounds);
@@ -405,7 +410,7 @@ describe('resize/ResizeUtil', function() {
     it('should apply negative padding', function() {
 
       // when
-      var newBounds = ResizeUtil.addPadding(bounds, -10);
+      var newBounds = addPadding(bounds, -10);
 
       // then
       expect(newBounds).to.eql({ x: -40, y: -40, width: 80, height: 80 });
@@ -415,7 +420,7 @@ describe('resize/ResizeUtil', function() {
     it('should apply default padding', function() {
 
       // when
-      var newBounds = ResizeUtil.addPadding(bounds);
+      var newBounds = addPadding(bounds);
 
       // then
       expect(newBounds).to.eql({ x: -70, y: -70, width: 140, height: 140 });
@@ -432,7 +437,7 @@ describe('resize/ResizeUtil', function() {
       };
 
       // when
-      var newBounds = ResizeUtil.addPadding(bounds, padding);
+      var newBounds = addPadding(bounds, padding);
 
       // then
       expect(newBounds).to.eql({

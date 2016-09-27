@@ -1,4 +1,4 @@
 module.exports = {
   __init__: [ 'labelSupportRules' ],
-  labelSupportRules: [ 'type', require('./LabelSupportRules') ]
+  labelSupportRules: [ 'type', require('./LabelSupportRules').default ]
 };

@@ -1,19 +1,19 @@
 'use strict';
 
-/* global bootstrapDiagram, inject */
+import { bootstrapDiagram, inject } from '../../TestHelper';
 
-var assign = require('lodash/object/assign');
+import { assign } from 'lodash-es';
 
-var snappingModule = require('../../../lib/features/snapping'),
-    modelingModule = require('../../../lib/features/modeling'),
-    moveModule = require('../../../lib/features/move'),
-    createModule = require('../../../lib/features/create');
+import snappingModule from '../../../lib/features/snapping';
+import modelingModule from '../../../lib/features/modeling';
+import moveModule from '../../../lib/features/move';
+import createModule from '../../../lib/features/create';
 
-var canvasEvent = require('../../util/MockEvents').createCanvasEvent;
+import { createCanvasEvent as canvasEvent } from '../../util/MockEvents';
 
-var SnapContext = require('../../../lib/features/snapping/SnapContext');
+import SnapContext from '../../../lib/features/snapping/SnapContext';
 
-var Event = require('../../../lib/core/EventBus').Event;
+import { Event as LocalEvent } from '../../../lib/core/EventBus';
 
 
 describe('features/snapping - Snapping', function() {
@@ -98,7 +98,7 @@ describe('features/snapping - Snapping', function() {
       var startEvent;
 
       beforeEach(function() {
-        startEvent = assign(new Event(), {
+        startEvent = assign(new LocalEvent(), {
           x: 150,
           y: 150,
           context: {
@@ -111,7 +111,7 @@ describe('features/snapping - Snapping', function() {
 
       function moveTo(startEvent, newPosition) {
 
-        return assign(new Event(), startEvent, {
+        return assign(new LocalEvent(), startEvent, {
           x: newPosition.x,
           y: newPosition.y,
           dx: newPosition.x - startEvent.x,

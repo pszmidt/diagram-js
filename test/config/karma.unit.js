@@ -40,7 +40,14 @@ module.exports = function(karma) {
     browserify: {
       debug: true,
       paths: [ absoluteBasePath ],
-      transform: [ 'brfs' ]
+      transform: [
+        [ 'brfs-babel' ],
+        [ 'babelify', {
+          global: true,
+          sourceMapsAbsolute: true,
+          presets: [ 'es2015' ]
+        } ]
+      ]
     }
   });
 };

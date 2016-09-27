@@ -2,15 +2,21 @@
 
 /* global bootstrapDiagram, inject */
 
+import modelingModule from '../../../../lib/features/modeling';
+import moveModule from '../../../../lib/features/move';
 
-var modelingModule = require('../../../../lib/features/modeling'),
-    moveModule = require('../../../../lib/features/move'),
-    orderingProviderModule = require('./provider');
+import orderingProviderModule from './provider';
 
 
 describe('features/ordering', function() {
 
-  beforeEach(bootstrapDiagram({ modules: [ moveModule, modelingModule, orderingProviderModule ] }));
+  beforeEach(bootstrapDiagram({
+    modules: [
+      moveModule,
+      modelingModule,
+      orderingProviderModule
+    ]
+  }));
 
 
   var rootShape,

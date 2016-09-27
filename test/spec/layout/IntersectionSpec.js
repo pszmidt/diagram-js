@@ -1,10 +1,11 @@
 'use strict';
 
-var forEach = require('lodash/collection/forEach');
+import { forEach } from 'lodash-es';
 
-var Snap = require('snapsvg');
+import Snap from 'snapsvg';
 
-var TestContainer = require('mocha-test-container-support');
+import TestContainer from 'mocha-test-container-support';
+
 
 describe('intersection', function() {
 

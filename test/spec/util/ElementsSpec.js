@@ -1,6 +1,11 @@
 'use strict';
 
-var Elements = require('../../../lib/util/Elements');
+import {
+  selfAndDirectChildren,
+  selfAndAllChildren,
+  getClosure,
+  getBoundingBox
+} from '../../../lib/util/Elements';
 
 
 describe('util/Elements', function() {
@@ -73,7 +78,7 @@ describe('util/Elements', function() {
       var a = shapeA;
 
       // when
-      var result = Elements.selfAndDirectChildren([shapeA]);
+      var result = selfAndDirectChildren([shapeA]);
 
       expect(result.length).to.equal(4);
       expect(result).to.eql([ a ].concat(a.children));
@@ -83,7 +88,7 @@ describe('util/Elements', function() {
     it('should return self (no children)', function() {
 
       // when
-      var result = Elements.selfAndDirectChildren([shapeB]);
+      var result = selfAndDirectChildren([shapeB]);
 
       expect(result.length).to.equal(1);
       expect(result).to.eql([ shapeB ]);
@@ -97,7 +102,7 @@ describe('util/Elements', function() {
           child = shapeA.children[1];
 
       // when
-      var result = Elements.selfAndDirectChildren([ a, child ]);
+      var result = selfAndDirectChildren([ a, child ]);
 
       expect(result.length).to.equal(6);
       expect(ids(result)).to.eql(ids([ a ].concat(a.children).concat(child.children)));
@@ -114,7 +119,7 @@ describe('util/Elements', function() {
           d = shapeD; // parent of A
 
       // when
-      var result = Elements.selfAndAllChildren([ a, d ]);
+      var result = selfAndAllChildren([ a, d ]);
 
       expect(result.length).to.equal(14);
     });
@@ -125,7 +130,7 @@ describe('util/Elements', function() {
   describe('getClosure', function() {
 
     it('should test getClosure', function() {
-      var closure = Elements.getClosure([ shapeE ]);
+      var closure = getClosure([ shapeE ]);
 
       expect(closure.allShapes).to.have.keys('e', 'c', 'c.0', 'c.1');
       expect(closure.enclosedElements).to.have.keys('e', 'c', 'c.0', 'c.1');
@@ -135,7 +140,7 @@ describe('util/Elements', function() {
   });
 
 
-  describe('#getBBox', function() {
+  describe('getBoundingBox', function() {
 
     var shape1 = {
       id: 'shape1',
@@ -172,7 +177,7 @@ describe('util/Elements', function() {
       //given
       var elements = shape2;
 
-      var bbox = Elements.getBBox(elements);
+      var bbox = getBoundingBox(elements);
 
       expect(bbox).to.eql({
         x: 120,
@@ -187,7 +192,7 @@ describe('util/Elements', function() {
       //given
       var elements = connection1;
 
-      var bbox = Elements.getBBox(elements);
+      var bbox = getBoundingBox(elements);
 
       expect(bbox).to.eql({
         x: 110,
@@ -202,7 +207,7 @@ describe('util/Elements', function() {
       //given
       var elements = [shape1, shape2, connection1];
 
-      var bbox = Elements.getBBox(elements);
+      var bbox = getBoundingBox(elements);
 
       expect(bbox).to.eql({
         x: 100,
@@ -217,7 +222,7 @@ describe('util/Elements', function() {
       //given
       var elements = [shape1, shape2, shape3, connection1];
 
-      var bbox = Elements.getBBox(elements);
+      var bbox = getBoundingBox(elements);
 
       expect(bbox).to.eql({
         x: -10,
@@ -232,7 +237,7 @@ describe('util/Elements', function() {
       //given
       var elements = [shape1, connection1];
 
-      var bbox = Elements.getBBox(elements);
+      var bbox = getBoundingBox(elements);
 
       expect(bbox).to.eql({
         x: 100,

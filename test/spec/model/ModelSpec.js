@@ -1,10 +1,13 @@
 'use strict';
 
-var Model = require('../../../lib/model');
+import {
+  Connection,
+  Shape,
+  create as createElement
+} from '../../../lib/model';
 
 
 describe('model', function() {
-
 
   it('should instantiate connection', function() {
 
@@ -12,14 +15,14 @@ describe('model', function() {
     var waypoints = [ { x: 0, y: 0 }, { x: 100, y: 100 } ];
 
     // when
-    var connection = Model.create('connection', {
+    var connection = createElement('connection', {
       waypoints: waypoints
     });
 
     // then
     expect(connection.waypoints).to.equal(waypoints);
 
-    expect(connection instanceof Model.Connection).to.equal(true);
+    expect(connection instanceof Connection).to.equal(true);
   });
 
 
@@ -29,7 +32,7 @@ describe('model', function() {
     var x = 10, y = 20, width = 100, height = 100;
 
     // when
-    var shape = Model.create('shape', {
+    var shape = createElement('shape', {
       x: x,
       y: y,
       width: width,
@@ -42,22 +45,22 @@ describe('model', function() {
     expect(shape.width).to.equal(width);
     expect(shape.height).to.equal(height);
 
-    expect(shape instanceof Model.Shape).to.equal(true);
+    expect(shape instanceof Shape).to.equal(true);
   });
 
 
   it('should wire relationships', function() {
 
     // when
-    var parentShape = Model.create('shape');
+    var parentShape = createElement('shape');
 
-    var shape1 = Model.create('shape', { parent: parentShape });
-    var shape2 = Model.create('shape', { parent: parentShape });
+    var shape1 = createElement('shape', { parent: parentShape });
+    var shape2 = createElement('shape', { parent: parentShape });
 
-    var shape1Label = Model.create('label', { parent: parentShape, labelTarget: shape1 });
+    var shape1Label = createElement('label', { parent: parentShape, labelTarget: shape1 });
 
-    var connection = Model.create('connection', { parent: parentShape, source: shape1, target: shape2 });
-    var connectionLabel = Model.create('label', { parent: parentShape, labelTarget: connection });
+    var connection = createElement('connection', { parent: parentShape, source: shape1, target: shape2 });
+    var connectionLabel = createElement('label', { parent: parentShape, labelTarget: connection });
 
     // then
 

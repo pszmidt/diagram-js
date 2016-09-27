@@ -1,11 +1,11 @@
 'use strict';
 
-require('../../TestHelper');
+require('../../TestHelper').default;
 
 /* global bootstrapDiagram, inject */
 
 
-var EventBus = require('../../../lib/core/EventBus');
+import EventBus from '../../../lib/core/EventBus';
 
 
 describe('environment/Mocking', function() {

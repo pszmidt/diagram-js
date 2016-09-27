@@ -1,14 +1,16 @@
 'use strict';
 
-
 /* global bootstrapDiagram, inject */
 
-var forEach = require('lodash/collection/forEach'),
-    assign = require('lodash/object/assign'),
-    every = require('lodash/collection/every'),
-    domify = require('min-dom/lib/domify');
+import {
+  forEach,
+  assign,
+  every
+} from 'lodash-es';
 
-var overlayModule = require('../../../../lib/features/overlays');
+import domify from 'domify';
+
+import overlayModule from '../../../../lib/features/overlays';
 
 
 function asMatrix(transformStr) {
@@ -50,7 +52,9 @@ describe('features/overlays', function() {
 
   describe('bootstrap', function() {
 
-    beforeEach(bootstrapDiagram({ modules: [ overlayModule ] }));
+    beforeEach(bootstrapDiagram({
+      modules: [ overlayModule ]
+    }));
 
 
     it('should expose api', inject(function(overlays) {

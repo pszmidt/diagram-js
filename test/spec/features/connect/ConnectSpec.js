@@ -1,20 +1,26 @@
 'use strict';
 
-require('../../../TestHelper');
+/* global sinon */
 
-/* global bootstrapDiagram, inject, sinon */
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
+import { createCanvasEvent as canvasEvent } from '../../../util/MockEvents';
 
-var canvasEvent = require('../../../util/MockEvents').createCanvasEvent;
+import modelingModule from '../../../../lib/features/modeling';
+import connectModule from '../../../../lib/features/connect';
 
-var modelingModule = require('../../../../lib/features/modeling'),
-    rulesModule = require('./rules'),
-    connectModule = require('../../../../lib/features/connect');
+import rulesModule from './rules';
 
 
 describe('features/connect', function() {
 
-  beforeEach(bootstrapDiagram({ modules: [ modelingModule, connectModule, rulesModule ] }));
+  beforeEach(bootstrapDiagram({
+    modules: [
+      modelingModule,
+      connectModule,
+      rulesModule
+    ]
+  }));
 
   beforeEach(inject(function(canvas, dragging) {
     dragging.setOptions({ manual: true });

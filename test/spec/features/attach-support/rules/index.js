@@ -1,4 +1,4 @@
 module.exports = {
   __init__: [ 'attachRules' ],
-  attachRules: [ 'type', require('./AttachRules') ]
+  attachRules: [ 'type', require('./AttachRules').default ]
 };

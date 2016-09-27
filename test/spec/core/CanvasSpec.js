@@ -1,11 +1,12 @@
 'use strict';
 
-require('../../TestHelper');
+/* global sinon */
 
-/* global bootstrapDiagram, inject, sinon */
+import { bootstrapDiagram, inject } from '../../TestHelper';
 
-var merge = require('lodash/object/merge');
-var TestContainer = require('mocha-test-container-support');
+import { merge } from 'lodash-es';
+
+import TestContainer from 'mocha-test-container-support';
 
 
 describe('Canvas', function() {

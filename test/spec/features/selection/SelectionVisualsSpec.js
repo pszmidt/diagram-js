@@ -3,7 +3,7 @@
 /* global bootstrapDiagram, inject */
 
 
-var selectionModule = require('../../../../lib/features/selection');
+import selectionModule from '../../../../lib/features/selection';
 
 
 describe('features/selection/SelectionVisuals', function() {

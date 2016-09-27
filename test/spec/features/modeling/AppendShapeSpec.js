@@ -1,17 +1,13 @@
 'use strict';
 
-require('../../../TestHelper');
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
-/* global bootstrapDiagram, inject */
+import { find } from 'lodash-es';
 
-
-var find = require('lodash/collection/find');
-
-var modelingModule = require('../../../../lib/features/modeling');
+import modelingModule from '../../../../lib/features/modeling';
 
 
 describe('features/modeling - append shape', function() {
-
 
   beforeEach(bootstrapDiagram({ modules: [ modelingModule ] }));
 

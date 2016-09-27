@@ -1,16 +1,12 @@
 'use strict';
 
-require('../../../TestHelper');
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
-var canvasEvent = require('../../../util/MockEvents').createCanvasEvent;
+import { createCanvasEvent as canvasEvent } from '../../../util/MockEvents';
 
-/* global bootstrapDiagram, inject */
+import { assign, omit } from 'lodash-es';
 
-
-var assign = require('lodash/object/assign'),
-    omit = require('lodash/object/omit');
-
-var dragModule = require('../../../../lib/features/dragging');
+import dragModule from '../../../../lib/features/dragging';
 
 
 describe('features/dragging - Dragging', function() {

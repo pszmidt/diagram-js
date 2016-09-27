@@ -1,11 +1,11 @@
 'use strict';
 
-require('../../../TestHelper');
+require('../../../TestHelper').default;
 
 /* global bootstrapDiagram, inject */
 
 
-var interactionEventsModule = require('../../../../lib/features/interaction-events');
+import interactionEventsModule from '../../../../lib/features/interaction-events';
 
 
 describe('features/interaction-events', function() {

@@ -1,21 +1,27 @@
 'use strict';
 
-require('../../../TestHelper');
+/* global sinon */
 
-/* global bootstrapDiagram, inject, sinon */
+import { bootstrapDiagram, inject } from '../../../TestHelper';
 
-var forEach = require('lodash/collection/forEach');
+import { forEach } from 'lodash-es';
 
-var copyPasteModule = require('../../../../lib/features/copy-paste'),
-    selectionModule = require('../../../../lib/features/selection'),
-    modelingModule = require('../../../../lib/features/modeling'),
-    rulesModule = require('./rules');
+import copyPasteModule from '../../../../lib/features/copy-paste';
+import selectionModule from '../../../../lib/features/selection';
+import modelingModule from '../../../../lib/features/modeling';
+
+import rulesModule from './rules';
 
 
 describe('features/copy-paste', function() {
 
   beforeEach(bootstrapDiagram({
-    modules: [ rulesModule, modelingModule, copyPasteModule, selectionModule ]
+    modules: [
+      rulesModule,
+      modelingModule,
+      copyPasteModule,
+      selectionModule
+    ]
   }));
 
 

@@ -1,8 +1,8 @@
 'use strict';
 
-/* global bootstrapDiagram, inject */
+import { bootstrapDiagram, inject } from '../../TestHelper';
 
-var merge = require('lodash/object/merge');
+import { merge } from 'lodash-es';
 
 describe('GraphicsFactory', function() {
 
