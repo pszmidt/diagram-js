@@ -18,7 +18,9 @@ describe('features/palette', function() {
 
   describe('bootstrap', function() {
 
-    beforeEach(bootstrapDiagram({ modules: [ paletteModule ] }));
+    beforeEach(bootstrapDiagram({
+      modules: [ paletteModule ]
+    }));
 
 
     it('should attach palette to diagram', inject(function(canvas, palette) {
@@ -49,7 +51,9 @@ describe('features/palette', function() {
 
   describe('providers', function() {
 
-    beforeEach(bootstrapDiagram({ modules: [ paletteModule ] }));
+    beforeEach(bootstrapDiagram({
+      modules: [ paletteModule ]
+    }));
 
 
     it('should register provider', inject(function(palette) {
@@ -186,21 +190,29 @@ describe('features/palette', function() {
 
   describe('lifecycle', function() {
 
-    beforeEach(bootstrapDiagram({ modules: [ paletteModule ] }));
+    beforeEach(bootstrapDiagram({
+      modules: [ paletteModule ]
+    }));
 
     beforeEach(inject(function(palette) {
       palette.registerProvider(new Provider());
     }));
 
-    function expectOpen(palette, open) {
-      expect(palette.isOpen()).to.equal(open);
-      expect(domClasses(palette._container).has('open')).to.equal(open);
-    }
+
+    it('should be visible', inject(function(canvas, palette) {
+
+      // marker class on .djs-container
+      expect(is(canvas._container, 'djsp-visible')).to.be.true;
+    }));
+
 
     it('should be opened (default)', inject(function(canvas, palette) {
 
       // then
-      expectOpen(palette, true);
+      expect(palette.isOpen()).to.be.true;
+
+      // marker class on .djs-container
+      expect(is(canvas._container, 'djsp-open')).to.be.true;
     }));
 
 
@@ -210,63 +222,117 @@ describe('features/palette', function() {
       palette.close();
 
       // then
-      expectOpen(palette, false);
+      expect(palette.isOpen()).to.be.false;
+
+      // no marker class on .djs-container
+      expect(is(canvas._container, 'djsp-open')).to.be.false;
     }));
 
 
-    it('should been opened', inject(function(canvas, palette) {
+    it('should re-open', inject(function(canvas, palette) {
 
       // when
       palette.close();
       palette.open();
 
       // then
-      expectOpen(palette, true);
+      expect(palette.isOpen()).to.be.true;
+
+      // no marker class on .djs-container
+      expect(is(canvas._container, 'djsp-open')).to.be.true;
     }));
 
   });
 
 
-  describe('resizing', function() {
+  describe('column layout', function() {
 
-    beforeEach(bootstrapDiagram({ modules: [ paletteModule ] }));
+    var entries = {
+      'entryA': {
+        action: function() {}
+      },
+      'entryB': {
+        action: function() {}
+      },
+      'entryC': {
+        action: function() {}
+      },
+      'entryD': {
+        action: function() {}
+      },
+      'entryE': {
+        action: function() {}
+      }
+    };
+
+    beforeEach(bootstrapDiagram({
+      modules: [ paletteModule ]
+    }));
 
     beforeEach(inject(function(palette) {
-      palette.registerProvider(new Provider());
+
+      palette.registerProvider(new Provider(entries));
     }));
 
 
-    it('should turn the palette into a two columns layout', inject(function(canvas, palette) {
-      // given
-      var parent = canvas.getContainer();
+    it('should be single column if enough space for entries',
+      inject(function(canvas, palette) {
+        // given
+        var parent = canvas.getContainer();
 
-      parent.style.height = '649px';
+        parent.style.height = '300px';
 
-      // when
-      canvas.resized();
+        // when
+        canvas.resized();
 
-      // then
-      expect(domClasses(parent).has('two-column')).to.be.true;
-    }));
+        // then
+        expect(is(parent, 'djsp-two-column')).to.be.false;
+      })
+    );
 
 
-    it('should turn the palette into a one column layout', inject(function(canvas, palette) {
-      var parent = canvas.getContainer();
+    it('should collapse into two columns',
+      inject(function(canvas, palette) {
+        // given
+        var parent = canvas.getContainer();
 
-      parent.style.height = '649px';
+        parent.style.height = '270px';
 
-      // when
-      canvas.resized();
+        // when
+        canvas.resized();
 
-      parent.style.height = '650px';
+        // then
+        expect(is(parent, 'djsp-two-column')).to.be.true;
+      })
+    );
 
-      canvas.resized();
 
-      // then
-      expect(domClasses(parent).has('two-column')).to.be.false;
-    }));
+    it('should turn the palette into a one column layout',
+      inject(function(canvas, palette) {
+        var parent = canvas.getContainer();
+
+        parent.style.height = '270px';
+
+        // when
+        canvas.resized();
+
+        parent.style.height = '300px';
+
+        canvas.resized();
+
+        // then
+        expect(is(parent, 'djsp-two-column')).to.be.false;
+      })
+    );
 
   });
 
-
 });
+
+
+
+///////// helpers /////////////////////
+
+function is(node, cls) {
+  return domClasses(node).has(cls);
+}

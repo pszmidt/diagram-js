@@ -248,10 +248,6 @@ svg.new-parent {
   width: 46px;
 }
 
-.djs-container.two-column .djs-palette.open {
-  width: 94px;
-}
-
 .djs-palette .separator {
   margin: 3px 5px 5px 5px;
   border: none;
@@ -284,18 +280,10 @@ svg.new-parent {
   max-width: 100%;
 }
 
-.djs-palette.open .djs-palette-toggle {
-  height: 10px;
-}
-
 .djs-palette .djs-palette-entries:after {
   content: '';
   display: table;
   clear: both;
-}
-
-.djs-palette:not(.open) .djs-palette-entries {
-  display: none;
 }
 
 .djs-palette .djs-palette-toggle:hover {
@@ -310,10 +298,6 @@ svg.new-parent {
   color: rgb(255, 116, 0) !important;
 }
 
-.djs-palette:not(.open) {
-  overflow: hidden;
-}
-
 .djs-palette .entry,
 .djs-palette .djs-palette-toggle {
   width: 46px;
@@ -322,8 +306,26 @@ svg.new-parent {
   cursor: default;
 }
 
-.djs-palette.open .djs-palette-toggle {
+/**
+ * Palette open / two-column layout is controlled via
+ * classes on .djs-container. This allows other components
+ * to hook into the palette, too.
+ */
+.djs-container.djsp-two-column.djsp-open .djs-palette {
+  width: 94px;
+}
+
+.djs-container:not(.djsp-open) .djs-palette-entries {
+  display: none;
+}
+
+.djs-container:not(.djsp-open) .djs-palette {
+  overflow: hidden;
+}
+
+.djs-container.djsp-open .djs-palette-toggle {
   width: 100%;
+  height: 10px;
 }
 
 /**
