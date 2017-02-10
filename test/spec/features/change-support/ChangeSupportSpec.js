@@ -2,7 +2,7 @@
 
 require('../../../TestHelper');
 
-/* global bootstrapDiagram, inject */
+/* global bootstrapDiagram, inject, sinon */
 
 
 var changeSupportModule = require('../../../../lib/features/modeling'),
@@ -120,6 +120,19 @@ describe('features/change-support', function() {
     expect(affectedElements).to.eql([
       rootElement
     ]);
+  }));
+
+
+  it('should update element containments before element', inject(function(eventBus, graphicsFactory) {
+    // given
+    var update = sinon.spy(graphicsFactory, 'update');
+    var updateContainments = sinon.spy(graphicsFactory, 'updateContainments');
+
+    // when
+    eventBus.fire('elements.changed', { elements: [ shapeB ] });
+
+    // then
+    sinon.assert.callOrder(updateContainments, update);
   }));
 
 });
