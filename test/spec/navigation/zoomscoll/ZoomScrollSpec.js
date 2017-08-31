@@ -35,6 +35,32 @@ describe('navigation/zoomscroll', function() {
   });
 
 
+  describe('zoom', function() {
+    beforeEach(bootstrapDiagram({
+      modules: [ zoomScrollModule ],
+      canvas: { deferUpdate: false }
+    }));
+
+
+    it.only('should zoom back to 1', inject(function(zoomScroll, canvas) {
+
+      // when
+      zoomScroll.zoom(0.5);
+      zoomScroll.zoom(0.5);
+      zoomScroll.zoom(0.5);
+      zoomScroll.zoom(0.5); // will not zoom
+
+      zoomScroll.zoom(-0.5);
+      zoomScroll.zoom(-0.5);
+      zoomScroll.zoom(-0.5);
+
+      // then
+      expect(canvas.zoom()).to.equal(1);
+    }));
+
+  });
+
+
   describe('step zoom', function() {
 
     beforeEach(bootstrapDiagram({
